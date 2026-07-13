@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edge启动页</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 骨架屏加载 -->
+    <div class="skeleton-loader" id="skeleton-loader">
+        <div class="skeleton-clock"></div>
+        <div class="skeleton-search"></div>
+        <div class="skeleton-links"></div>
+    </div>
+    
+    <div class="container" id="main-container" style="display: none;">
+        <!-- 时间显示区域 -->
+        <div class="clock-container">
+            <div class="time" id="time">00:00:00</div>
+            <div class="date" id="date">2026年7月13日 星期一</div>
+        </div>
+        
+        <!-- 搜索栏区域 -->
+        <div class="search-container">
+            <div class="search-engines">
+                <button class="engine-btn active" data-engine="bing">必应</button>
+                <button class="engine-btn" data-engine="microsoft">微软</button>
+                <button class="engine-btn" data-engine="google">谷歌</button>
+                <button class="engine-btn" data-engine="baidu">百度</button>
+            </div>
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="搜索..." autocomplete="off">
+                <button id="search-btn">搜索</button>
+            </div>
+        </div>
+        
+        <!-- 快速链接区域 -->
+        <div class="quick-links">
+            <div class="link-grid" id="link-grid">
+                <!-- 动态生成 -->
+            </div>
+            <div class="add-link-container">
+                <button id="add-link-btn" class="add-link-btn">+ 添加链接</button>
+            </div>
+        </div>
+        
+        <!-- 壁纸控制 -->
+        <div class="wallpaper-controls">
+            <button id="wallpaper-change">更换壁纸</button>
+            <button id="wallpaper-settings">壁纸设置</button>
+        </div>
+        
+        <!-- 设置按钮 -->
+        <div class="settings-toggle">
+            <button id="settings-btn">⚙️</button>
+        </div>
+    </div>
+    
+    <!-- 设置面板 -->
+    <div class="settings-panel" id="settings-panel">
+        <div class="settings-header">
+            <h3>设置</h3>
+            <button id="close-settings">×</button>
+        </div>
+        <div class="settings-content">
+            <!-- 外观设置 -->
+            <div class="settings-section">
+                <h4>外观设置</h4>
+                <div class="setting-group">
+                    <label>主题选择</label>
+                    <select id="theme-select">
+                        <option value="dark">深色主题</option>
+                        <option value="light">浅色主题</option>
+                        <option value="auto">跟随系统</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label>时间格式</label>
+                    <select id="time-format">
+                        <option value="24">24小时制</option>
+                        <option value="12">12小时制</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label>时钟样式</label>
+                    <select id="clock-style">
+                        <option value="digital">数字时钟</option>
+                        <option value="analog">模拟时钟</option>
+                        <option value="minimal">极简时钟</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- 搜索设置 -->
+            <div class="settings-section">
+                <h4>搜索设置</h4>
+                <div class="setting-group">
+                    <label>默认搜索引擎</label>
+                    <select id="default-search-engine">
+                        <option value="bing">必应</option>
+                        <option value="microsoft">微软</option>
+                        <option value="google">谷歌</option>
+                        <option value="baidu">百度</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label>搜索建议</label>
+                    <select id="search-suggestions">
+                        <option value="enabled">启用</option>
+                        <option value="disabled">禁用</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- 壁纸设置 -->
+            <div class="settings-section">
+                <h4>壁纸设置</h4>
+                <div class="setting-group">
+                    <label>壁纸来源</label>
+                    <select id="wallpaper-source">
+                        <option value="local">本地图片</option>
+                        <option value="unsplash">Unsplash</option>
+                        <option value="bing">必应每日壁纸</option>
+                        <option value="wallpaper-engine">Wallpaper Engine</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label>自动更换</label>
+                    <select id="wallpaper-auto-change">
+                        <option value="disabled">禁用</option>
+                        <option value="hourly">每小时</option>
+                        <option value="daily">每天</option>
+                        <option value="weekly">每周</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label>壁纸模糊度</label>
+                    <input type="range" id="wallpaper-blur" min="0" max="20" value="0">
+                    <span id="blur-value">0px</span>
+                </div>
+            </div>
+            
+            <!-- 快速链接设置 -->
+            <div class="settings-section">
+                <h4>快速链接</h4>
+                <div class="setting-group">
+                    <label>链接数量</label>
+                    <select id="link-count">
+                        <option value="4">4个</option>
+                        <option value="8">8个</option>
+                        <option value="12">12个</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label>链接大小</label>
+                    <select id="link-size">
+                        <option value="small">小</option>
+                        <option value="medium">中</option>
+                        <option value="large">大</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- 数据管理 -->
+            <div class="settings-section">
+                <h4>数据管理</h4>
+                <div class="setting-group">
+                    <button id="export-settings" class="settings-btn">导出设置</button>
+                    <button id="import-settings" class="settings-btn">导入设置</button>
+                    <button id="reset-settings" class="settings-btn danger">重置所有设置</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 添加链接模态框 -->
+    <div class="modal" id="add-link-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>添加快速链接</h3>
+                <button class="modal-close" id="close-modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="link-name">网站名称</label>
+                    <input type="text" id="link-name" placeholder="例如：哔哩哔哩">
+                </div>
+                <div class="form-group">
+                    <label for="link-url">网站地址</label>
+                    <input type="url" id="link-url" placeholder="https://www.example.com">
+                </div>
+                <div class="form-group">
+                    <label for="link-icon">图标文字</label>
+                    <input type="text" id="link-icon" placeholder="例如：B" maxlength="2">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="save-link" class="settings-btn">保存</button>
+                <button id="cancel-link" class="settings-btn">取消</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 性能优化脚本 -->
+    <script>
+        // 骨架屏加载
+        function showSkeleton() {
+            document.getElementById('skeleton-loader').style.display = 'block';
+            document.getElementById('main-container').style.display = 'none';
+        }
+        
+        function hideSkeleton() {
+            document.getElementById('skeleton-loader').style.display = 'none';
+            document.getElementById('main-container').style.display = 'flex';
+        }
+        
+        // 页面加载完成后隐藏骨架屏
+        window.addEventListener('load', function() {
+            // 模拟加载延迟
+            setTimeout(hideSkeleton, 500);
+        });
+        
+        // 预加载关键资源
+        function preloadResources() {
+            const resources = [
+                'css/style.css',
+                'css/themes.css',
+                'css/skeleton.css',
+                'js/app.js',
+                'js/clock.js',
+                'js/search.js',
+                'js/wallpaper.js',
+                'js/storage.js',
+                'js/quicklinks.js'
+            ];
+            
+            resources.forEach(resource => {
+                const link = document.createElement('link');
+                link.rel = 'preload';
+                link.href = resource;
+                link.as = resource.endsWith('.css') ? 'style' : 'script';
+                document.head.appendChild(link);
+            });
+        }
+        
+        // 执行预加载
+        preloadResources();
+    </script>
+    
+    <script src="js/app.js"></script>
+    <script src="js/clock.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/wallpaper.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/quicklinks.js"></script>
+</body>
+</html>
