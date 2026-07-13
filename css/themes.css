@@ -1,0 +1,92 @@
+/* 主题变量文件 */
+:root {
+    /* 深色主题 (默认) */
+    --bg-primary: #1a1a2e;
+    --bg-secondary: #16213e;
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.8);
+    --accent-color: #4cc9f0;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --shadow-color: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="light"] {
+    /* 浅色主题 */
+    --bg-primary: #f8f9fa;
+    --bg-secondary: #e9ecef;
+    --text-primary: #212529;
+    --text-secondary: rgba(33, 37, 41, 0.8);
+    --accent-color: #0066cc;
+    --glass-bg: rgba(0, 0, 0, 0.05);
+    --glass-border: rgba(0, 0, 0, 0.1);
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="auto"] {
+    /* 跟随系统主题 */
+    @media (prefers-color-scheme: dark) {
+        --bg-primary: #1a1a2e;
+        --bg-secondary: #16213e;
+        --text-primary: #ffffff;
+        --text-secondary: rgba(255, 255, 255, 0.8);
+        --accent-color: #4cc9f0;
+        --glass-bg: rgba(255, 255, 255, 0.1);
+        --glass-border: rgba(255, 255, 255, 0.2);
+        --shadow-color: rgba(0, 0, 0, 0.2);
+    }
+    
+    @media (prefers-color-scheme: light) {
+        --bg-primary: #f8f9fa;
+        --bg-secondary: #e9ecef;
+        --text-primary: #212529;
+        --text-secondary: rgba(33, 37, 41, 0.8);
+        --accent-color: #0066cc;
+        --glass-bg: rgba(0, 0, 0, 0.05);
+        --glass-border: rgba(0, 0, 0, 0.1);
+        --shadow-color: rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* 应用主题变量 */
+body {
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    color: var(--text-primary);
+}
+
+.search-box {
+    background: var(--glass-bg);
+    border-color: var(--glass-border);
+}
+
+.search-box:focus-within {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 20px rgba(76, 201, 240, 0.1);
+}
+
+.engine-btn {
+    background: var(--glass-bg);
+    border-color: var(--glass-border);
+    color: var(--text-primary);
+}
+
+.engine-btn.active {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #fff;
+}
+
+.quick-link {
+    background: var(--glass-bg);
+    border-color: var(--glass-border);
+    color: var(--text-primary);
+}
+
+.settings-panel {
+    background: rgba(26, 26, 46, 0.95);
+    border-left-color: var(--glass-border);
+}
+
+[data-theme="light"] .settings-panel {
+    background: rgba(248, 249, 250, 0.95);
+}
